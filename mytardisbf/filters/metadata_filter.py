@@ -1,5 +1,6 @@
 from mytardisbf import metadata, tasks
 from django.conf import settings
+from tardis.tardis_portal.models import Schema, DatafileParameterSet
 
 
 class MetadataFilter(object):
@@ -15,7 +16,7 @@ class MetadataFilter(object):
     """
     def __init__(self, name, schema):
         self.name = name
-        self.schema = schema
+        self.schema = "http://tardis.edu.au/schemas/robtest/1"
 
     def __call__(self, sender, **kwargs):
         """Post save call back to invoke this filter.
@@ -30,10 +31,22 @@ class MetadataFilter(object):
             Specifies whether a new record is being created.
         """
         instance = kwargs.get('instance')
-        bfqueue = getattr(settings, 'BIOFORMATS_QUEUE', 'celery')
-        tasks.process_meta_file_output\
-            .apply_async(args=[metadata.get_meta, instance, self.schema,
-                               False], queue=bfqueue)
+        
+        # use instance to extract metadata here
+
+        # this splits by extension
+        #input_fname, ext = os.path.splitext(os.path.basename(instance))
+        
+        # eg. process_file(instance)
+
+        # write result to database  
+        ps = DatafileParameterSet(schema=self.schema, datafile=instance)
+        ps.save()    
+
+        dfp = DatafileParameter(parameterset=ps, name='samplesperpixel')
+        dfp.string_value = "rob test"
+
+        dfp.save()
 
 
 def make_filter(name, schema):

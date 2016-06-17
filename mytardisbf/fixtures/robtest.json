@@ -1,0 +1,32 @@
+[
+    {
+        "pk": null, 
+        "model": "tardis_portal.schema", 
+        "fields": {
+            "name": "Rob Test Metadata",
+            "namespace": "http://tardis.edu.au/schemas/robtest/1", 
+            "subtype": "", 
+            "hidden": true, 
+            "type": 3, 
+            "immutable": true
+        }
+    },
+    {
+        "pk": null, 
+        "model": "tardis_portal.parametername", 
+        "fields": {
+            "name": "samplesperpixel",
+            "data_type": 2, 
+            "is_searchable": true, 
+            "choices": "", 
+            "comparison_type": 1, 
+            "full_name": "Samples per Pixel", 
+            "units": "", 
+            "order": 9999, 
+            "immutable": true, 
+            "schema": [
+                "http://tardis.edu.au/schemas/robtest/1"
+            ]
+        }
+    },
+]

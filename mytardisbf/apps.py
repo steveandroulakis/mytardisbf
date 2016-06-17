@@ -5,15 +5,16 @@ from tardis.tardis_portal.models import Schema
 logger = logging.getLogger(__name__)
 
 
-BFSCHEMA2 = "http://tardis.edu.au/schemas/bioformats/2"
+# change to your own schema name
+ROBTEST_SCHEMA = "http://tardis.edu.au/schemas/robtest/1"
 
 
-class MyTardisBFConfig(AppConfig):
-    name = 'mytardisbf'
-    verbose_name = "MyTardis Bioformats"
+class RobTestConfig(AppConfig):
+    name = 'robtest'
+    verbose_name = "MyTardis RobTest"
 
     def ready(self):
-        if not Schema.objects.filter(namespace__exact=BFSCHEMA2):
+        if not Schema.objects.filter(namespace__exact=ROBTEST_SCHEMA):
             from django.core.management import call_command
-            call_command('loaddata', 'bioformats')
+            call_command('loaddata', 'robtest')
 

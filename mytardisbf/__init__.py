@@ -1,2 +1,2 @@
-# Setup defaults config for MyTardisBF App in Django
-default_app_config = 'mytardisbf.apps.MyTardisBFConfig'
+# Setup defaults config for RobTest App in Django
+default_app_config = 'robtest.apps.RobTestConfig'
